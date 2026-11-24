@@ -833,13 +833,8 @@ button { font: inherit; color: inherit; }
   animation-play-state: paused;
 }
 .s-open:hover .s-disc, .music-on .s-disc { animation-play-state: running; }
-/* "See it in the résumé": a page instead of a disc */
-.s-page { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: #141214; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3); }
-.s-page svg { width: 17px; height: 17px; fill: none; stroke: var(--gold-hi); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.25s; }
-.s-open:hover .s-page svg, .slide.is-link:hover .s-page svg { transform: translateY(-1.5px) rotate(-4deg); }
 /* the whole ticket is clickable */
 .slide.is-link { cursor: pointer; }
-.slide.is-link:hover .s-open { background: rgba(201, 164, 92, 0.24); }
 .slide.is-link :is(.s-kicker, .s-title, .s-text, .s-meta) { user-select: text; }
 @keyframes s-spin { to { transform: rotate(360deg); } }
 

@@ -507,9 +507,7 @@
       ? `<div class="s-links"><a href="mailto:${esc(C.email)}">Email</a>${C.links.map(linkHTML).join('')}<a href="#" data-act="score">Résumé</a></div>`
       : s.project
         ? `<button class="s-open" data-act="record" data-id="${esc(s.project)}"><span class="s-disc" aria-hidden="true"></span>Open the record</button>`
-        : s.at
-          ? `<button class="s-open s-resume" data-act="resume" data-at="${esc(s.at)}"><span class="s-page" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3.5h7l4 4V20.5H7z"/><path d="M14 3.5v4h4M9.5 12h6M9.5 15h6M9.5 18h3.5"/></svg></span>See it in the résumé</button>`
-          : '';
+        : '';
     return `
       <p class="s-kicker">${esc(s.kicker)}</p>
       <h2 class="s-title">${esc(s.title)}</h2>
@@ -532,7 +530,13 @@
     el.innerHTML = slideHTML(slides[i]);
     // the whole ticket is a way in: a project opens its record, anything else its place in the résumé
     if (slides[i].project) el.dataset.id = slides[i].project;
-    else if (slides[i].at) el.dataset.at = slides[i].at;
+    else if (slides[i].at) {
+      el.dataset.at = slides[i].at;
+      // no button on these tickets, so the ticket itself takes keyboard focus
+      el.tabIndex = 0;
+      el.setAttribute('role', 'link');
+      el.setAttribute('aria-label', `${slides[i].title}: open in the résumé`);
+    }
     if (el.dataset.id || el.dataset.at) el.classList.add('is-link');
     slidesEl.appendChild(el);
     segEls.forEach((s, k) => {
@@ -764,8 +768,6 @@
     slidesEl.addEventListener('click', (e) => {
       const slide = e.target.closest('.slide');
       if (e.target.closest('[data-act="score"]')) { e.preventDefault(); openScore(slide?.dataset.at); return; }
-      const res = e.target.closest('[data-act="resume"]');
-      if (res) { openScore(res.dataset.at); return; }
       const rec = e.target.closest('[data-act="record"]');
       if (rec) { if (window.Records) Records.open(rec.dataset.id); return; }
       // anywhere else on a ticket does the same as its button (its own links still work as links)
@@ -773,6 +775,11 @@
       if (String(window.getSelection?.() || '').length) return; // selecting text, not clicking
       if (slide.dataset.id) { if (window.Records) Records.open(slide.dataset.id); }
       else if (slide.dataset.at) openScore(slide.dataset.at);
+    });
+    slidesEl.addEventListener('keydown', (e) => {
+      if ((e.key !== 'Enter' && e.key !== ' ') || !e.target.matches('.slide[data-at]')) return;
+      e.preventDefault();
+      openScore(e.target.dataset.at);
     });
 
     $('#playSelf').addEventListener('click', () => (live.on ? exitPlay() : enterPlay()));
