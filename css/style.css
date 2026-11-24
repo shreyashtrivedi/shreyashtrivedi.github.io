@@ -737,6 +737,12 @@ button { font: inherit; color: inherit; }
 .sc-sub { font-family: var(--type); font-size: 14.5px; color: var(--print-soft); }
 .sc-entry ul, .sc-sec > ul { margin: 6px 0 0; padding-left: 20px; }
 .sc-skills { display: grid; grid-template-columns: 150px 1fr; gap: 6px 16px; margin: 0; }
+/* a ticket's rows, marked as if with a highlighter, fading once you've seen them */
+.sc-hit { border-radius: 3px; animation: sc-hit 3.4s ease-out 0.45s both; }
+@keyframes sc-hit {
+  0%, 45% { background-color: rgba(255, 205, 80, 0.55); box-shadow: 0 0 0 5px rgba(255, 205, 80, 0.55); }
+  100% { background-color: rgba(255, 205, 80, 0); box-shadow: 0 0 0 5px rgba(255, 205, 80, 0); }
+}
 .sc-skills dt { font-weight: 500; }
 .sc-skills dd { margin: 0; }
 .sc-flag { margin-left: 8px; font-family: var(--type); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
@@ -827,6 +833,14 @@ button { font: inherit; color: inherit; }
   animation-play-state: paused;
 }
 .s-open:hover .s-disc, .music-on .s-disc { animation-play-state: running; }
+/* "See it in the résumé": a page instead of a disc */
+.s-page { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: #141214; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3); }
+.s-page svg { width: 17px; height: 17px; fill: none; stroke: var(--gold-hi); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.25s; }
+.s-open:hover .s-page svg, .slide.is-link:hover .s-page svg { transform: translateY(-1.5px) rotate(-4deg); }
+/* the whole ticket is clickable */
+.slide.is-link { cursor: pointer; }
+.slide.is-link:hover .s-open { background: rgba(201, 164, 92, 0.24); }
+.slide.is-link :is(.s-kicker, .s-title, .s-text, .s-meta) { user-select: text; }
 @keyframes s-spin { to { transform: rotate(360deg); } }
 
 

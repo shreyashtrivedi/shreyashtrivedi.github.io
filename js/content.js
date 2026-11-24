@@ -20,24 +20,30 @@ window.CONTENT = {
   },
 
   // The slideshow over the keys, one point at a time. `links: true` shows the contact links.
+  // `at` is where the ticket leads in the résumé view: a section ('education', 'coursework', 'skills',
+  // 'experience', 'projects', 'achievements' or 'contact'), then optionally '/' and the rows to highlight
+  // (a skills group, or words from the entry or bullet), several separated by '|'.
   slides: [
     {
       kicker: 'About',
       title: 'Final-year CSE undergraduate at RGIPT',
       text: 'Comfortable with ambiguous, large-scale data and systems problems.',
       meta: 'B.Tech · 2023 – 2027 · CGPA 9.04 / 10',
+      at: 'education/Rajiv Gandhi',
     },
     {
       kicker: 'Experience · Accenture',
       title: 'Associate Software Engineering Intern',
       text: 'Production enterprise Linux (RHEL/CentOS): patch management, server operations, incidents and escalations.',
       meta: 'Infrastructure Services · May – Jul 2026',
+      at: 'experience/Accenture',
     },
     {
       kicker: 'Achievement',
       title: 'Top 3% in the Amazon ML Challenge 2026',
       text: 'Ranked ~300 of 10,000+ teams, working in a team of four.',
       meta: 'Macro F0.5 0.9875',
+      at: 'achievements/Amazon ML Challenge',
     },
     // Project slides are filled in from `projects` below; clicking one opens its record.
     { project: 'leash' },
@@ -48,36 +54,42 @@ window.CONTENT = {
       title: 'LLMs, RAG and AI agents (MCP)',
       text: 'Generative AI and hybrid search: the stack behind Leash, RGIPT Assistant and Edify.',
       meta: 'Hugging Face · ChromaDB',
+      at: 'skills/AI & Retrieval',
     },
     {
       kicker: 'Skills · ML & Data',
       title: 'PyTorch, TensorFlow, scikit-learn',
       text: 'Supervised learning and classification, with pandas and NumPy.',
       meta: 'Plus stacked LightGBM in the Amazon ML Challenge',
+      at: 'skills/ML & Data',
     },
     {
       kicker: 'Skills · Languages & Backend',
       title: 'Python, C++, TypeScript',
       text: 'Also C, JavaScript, SQL, HTML, CSS and Bash.',
       meta: 'FastAPI · Node.js · REST APIs · React · SQLite · MongoDB',
+      at: 'skills/Languages|Backend',
     },
     {
       kicker: 'Skills · Cloud & Tools',
       title: 'Docker, Kubernetes, AWS',
       text: 'And Linux (RHEL/CentOS), supported in production at Accenture.',
       meta: 'Git · Jupyter Notebooks · VS Code · Agile/Scrum',
+      at: 'skills/Cloud & Tools',
     },
     {
       kicker: 'Problem solving',
       title: '500+ algorithmic problems solved',
       text: 'On LeetCode, Codeforces and other platforms.',
       meta: 'DSA · Design & Analysis of Algorithms · Discrete Mathematics',
+      at: 'achievements/Problem solving',
     },
     {
       kicker: 'Beyond code',
       title: 'Teaching assistant and volunteer',
       text: 'UG Teaching Assistant for Electronics Engineering and Modern Physics, and a volunteer teaching rural children at Gyanarpan. And obviously a pianist :)',
       meta: '',
+      at: 'achievements/Teaching Assistant',
     },
     {
       kicker: 'Contact',
@@ -85,6 +97,7 @@ window.CONTENT = {
       text: 'Open to full-time roles in software, AI and ML engineering.',
       meta: 'trivedishreyash621@gmail.com',
       links: true,
+      at: 'contact',
     },
   ],
 

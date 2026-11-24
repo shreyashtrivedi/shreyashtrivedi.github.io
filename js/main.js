@@ -507,7 +507,9 @@
       ? `<div class="s-links"><a href="mailto:${esc(C.email)}">Email</a>${C.links.map(linkHTML).join('')}<a href="#" data-act="score">Résumé</a></div>`
       : s.project
         ? `<button class="s-open" data-act="record" data-id="${esc(s.project)}"><span class="s-disc" aria-hidden="true"></span>Open the record</button>`
-        : '';
+        : s.at
+          ? `<button class="s-open s-resume" data-act="resume" data-at="${esc(s.at)}"><span class="s-page" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3.5h7l4 4V20.5H7z"/><path d="M14 3.5v4h4M9.5 12h6M9.5 15h6M9.5 18h3.5"/></svg></span>See it in the résumé</button>`
+          : '';
     return `
       <p class="s-kicker">${esc(s.kicker)}</p>
       <h2 class="s-title">${esc(s.title)}</h2>
@@ -528,6 +530,10 @@
     const el = document.createElement('div');
     el.className = 'slide';
     el.innerHTML = slideHTML(slides[i]);
+    // the whole ticket is a way in: a project opens its record, anything else its place in the résumé
+    if (slides[i].project) el.dataset.id = slides[i].project;
+    else if (slides[i].at) el.dataset.at = slides[i].at;
+    if (el.dataset.id || el.dataset.at) el.classList.add('is-link');
     slidesEl.appendChild(el);
     segEls.forEach((s, k) => {
       s.classList.toggle('done', k < i);
@@ -643,26 +649,27 @@
   /* ---------- Plain résumé ---------- */
 
   function renderScore() {
-    const sec = (title, body) => `<section class="sc-sec"><h2>${title}</h2>${body}</section>`;
+    // `key` names the section for the tickets that lead here (see `at` in content.js)
+    const sec = (title, body, key) => `<section class="sc-sec" data-sec="${key}"><h2>${title}</h2>${body}</section>`;
     return `
       <header class="sc-head">
         <h1>${esc(C.name)}</h1>
-        <p class="sc-contact"><a href="mailto:${esc(C.email)}">${esc(C.email)}</a>${C.links.map((l) => ' · ' + linkHTML(l)).join('')}${C.resume ? ` · <a href="${esc(C.resume)}" target="_blank" rel="noopener">PDF</a>` : ''}</p>
+        <p class="sc-contact" data-sec="contact"><a href="mailto:${esc(C.email)}">${esc(C.email)}</a>${C.links.map((l) => ' · ' + linkHTML(l)).join('')}${C.resume ? ` · <a href="${esc(C.resume)}" target="_blank" rel="noopener">PDF</a>` : ''}</p>
       </header>
-      ${C.about ? sec('Summary', `<p>${esc(C.about)}</p>`) : ''}
+      ${C.about ? sec('Summary', `<p>${esc(C.about)}</p>`, 'summary') : ''}
       ${sec('Education', C.education.map((e) => `
         <div class="sc-entry">
           <div class="sc-row"><strong>${esc(e.school)}</strong><span>${esc(e.period)}</span></div>
           <div class="sc-row sc-sub"><span>${esc(e.degree)}</span><span>${esc(e.score)}</span></div>
-        </div>`).join(''))}
-      ${C.coursework?.length ? sec('Relevant Coursework', `<p>${C.coursework.map(esc).join(', ')}</p>`) : ''}
-      ${sec('Technical Skills', `<dl class="sc-skills">${C.skills.map((g) => `<dt>${esc(g.group)}</dt><dd>${g.items.map(esc).join(', ')}</dd>`).join('')}</dl>`)}
+        </div>`).join(''), 'education')}
+      ${C.coursework?.length ? sec('Relevant Coursework', `<p>${C.coursework.map(esc).join(', ')}</p>`, 'coursework') : ''}
+      ${sec('Technical Skills', `<dl class="sc-skills">${C.skills.map((g) => `<dt data-key="${esc(g.group)}">${esc(g.group)}</dt><dd data-key="${esc(g.group)}">${g.items.map(esc).join(', ')}</dd>`).join('')}</dl>`, 'skills')}
       ${sec('Experience', C.experience.map((x) => `
         <div class="sc-entry">
           <div class="sc-row"><strong>${esc(x.role)}</strong><span>${esc(x.period)}</span></div>
           <div class="sc-sub">${esc(x.org)}</div>
           <ul>${x.points.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>
-        </div>`).join(''))}
+        </div>`).join(''), 'experience')}
       ${sec('Projects', C.projects.map((p) => {
         const r = p.resume || {};
         const links = (p.links || []).filter((l) => l.url && l.url !== '#').map((l) => ` · ${linkHTML(l)}`).join('');
@@ -672,8 +679,8 @@
           <div class="sc-sub">${esc(r.stack || p.stackLine || (p.stack || []).map((t) => t.name).join(', '))}${links}</div>
           <ul>${(r.bullets || [p.tagline, ...(p.highlights || [])]).map((pt) => `<li>${esc(pt)}</li>`).join('')}</ul>
         </div>`;
-      }).join(''))}
-      ${sec('Achievements', `<ul>${C.achievements.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>`)}
+      }).join(''), 'projects')}
+      ${sec('Achievements', `<ul>${C.achievements.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>`, 'achievements')}
       <div class="sc-credits">
         <p>Music on this site is played on the Salamander Grand Piano samples by Alexander Holm (CC BY 3.0), from scores typeset by the Mutopia Project:</p>
         <ul>${REP.map((p) => `<li>${esc(p.composer)}, <em>${esc(label(p))}</em>: <a href="${esc(p.source)}" target="_blank" rel="noopener">source</a>, ${esc(p.licence)}</li>`).join('')}</ul>
@@ -681,20 +688,51 @@
   }
 
   let scoreOpener = null;
-  function openScore() {
-    if ($('#score').hidden) scoreOpener = document.activeElement;
+  let scoreResume = false; // the slideshow was running when the résumé opened
+
+  // Open the résumé view. From a ticket, `at` says where to go (see `at` in content.js).
+  function openScore(at) {
+    if ($('#score').hidden) {
+      scoreOpener = document.activeElement;
+      // the slideshow waits on the same ticket while the résumé is open
+      scoreResume = seated && !slidePaused;
+      if (seated) setSlidePaused(true);
+    }
     exitPlay(false);
     closeRepertoire();
     $('#scorePaper').innerHTML ||= renderScore();
     $('#score').hidden = false;
     $('#score').scrollTop = 0;
-    $('#scoreClose').focus();
+    $('#scoreClose').focus({ preventScroll: true });
     window.Stage && Stage.setPaused(true); // the résumé covers the stage: no need to draw it
+    if (typeof at === 'string' && at) requestAnimationFrame(() => goToScore(at));
+  }
+
+  // Scroll the résumé to a section and briefly highlight the rows a ticket was about.
+  function goToScore(at) {
+    const [where, rows = ''] = at.split('/');
+    const box = $('#score');
+    const sec = $(`#scorePaper [data-sec="${CSS.escape(where)}"]`);
+    if (!sec) return;
+    const hits = [];
+    for (const want of rows.split('|').filter(Boolean)) {
+      const keyed = [...sec.querySelectorAll('[data-key]')].filter((el) => el.dataset.key === want);
+      if (keyed.length) { hits.push(...keyed); continue; }
+      const row = [...sec.querySelectorAll('.sc-entry, li')].find((el) => el.textContent.includes(want));
+      if (row) hits.push(row);
+    }
+    if (!rows) hits.push(sec);
+    const top = sec.getBoundingClientRect().top - box.getBoundingClientRect().top + box.scrollTop - $('.score-bar').offsetHeight - 18;
+    box.scrollTo({ top: Math.max(0, top), behavior: reduced ? 'auto' : 'smooth' });
+    hits.forEach((el) => { el.classList.remove('sc-hit'); void el.offsetWidth; el.classList.add('sc-hit'); });
+    setTimeout(() => hits.forEach((el) => el.classList.remove('sc-hit')), 4000);
   }
 
   function closeScore() {
     $('#score').hidden = true;
     window.Stage && Stage.setPaused(!!window.Records?.isOpen());
+    if (scoreResume) setSlidePaused(false);
+    scoreResume = false;
     // back to whatever opened it, if it is still on screen (a slide may have moved on)
     const back = scoreOpener && scoreOpener !== document.body && document.contains(scoreOpener) && scoreOpener.getClientRects().length ? scoreOpener : $('#scoreBtn');
     back.focus({ preventScroll: true });
@@ -724,9 +762,17 @@
     $('#next').addEventListener('click', () => show(current + 1));
     $('#pause').addEventListener('click', () => setSlidePaused(!slidePaused));
     slidesEl.addEventListener('click', (e) => {
-      if (e.target.closest('[data-act="score"]')) { e.preventDefault(); openScore(); }
+      const slide = e.target.closest('.slide');
+      if (e.target.closest('[data-act="score"]')) { e.preventDefault(); openScore(slide?.dataset.at); return; }
+      const res = e.target.closest('[data-act="resume"]');
+      if (res) { openScore(res.dataset.at); return; }
       const rec = e.target.closest('[data-act="record"]');
-      if (rec && window.Records) Records.open(rec.dataset.id);
+      if (rec) { if (window.Records) Records.open(rec.dataset.id); return; }
+      // anywhere else on a ticket does the same as its button (its own links still work as links)
+      if (!slide || slide.classList.contains('out') || e.target.closest('a, button')) return;
+      if (String(window.getSelection?.() || '').length) return; // selecting text, not clicking
+      if (slide.dataset.id) { if (window.Records) Records.open(slide.dataset.id); }
+      else if (slide.dataset.at) openScore(slide.dataset.at);
     });
 
     $('#playSelf').addEventListener('click', () => (live.on ? exitPlay() : enterPlay()));
