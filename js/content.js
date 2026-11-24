@@ -228,7 +228,7 @@ window.CONTENT = {
       problem: 'RGIPT’s website spreads its answers across 600 pages and PDFs: fee structures, admission notices, placement reports. 284 of those PDFs are scanned images that no search box can read. Students and applicants end up digging through notices, and a general chatbot will happily invent a fee or a date.',
       build: 'A retrieval-augmented chatbot with source citations. A crawler collects the site, Gemini OCR recovers the scanned PDFs, and everything becomes 3,587 chunks embedded with BGE. Each question runs two searches, BGE vectors and BM25 keywords, merged with reciprocal rank fusion, and Gemini answers only from the six passages found, citing each one and trusting current pages over old PDFs. A 34-question evaluation set measured every change along the way. For $0 hosting, the vectors later moved from ChromaDB to a NumPy index with identical results, so the whole app runs in about 320 MB, with a 3-model Gemini fallback, an answer cache, rate limits and a one-line embeddable widget.',
       highlights: [
-        'Hybrid search, BGE embeddings plus BM25 merged with reciprocal rank fusion, finds the right source for 100% of test questions in the top 6 (MRR 0.836) in about 21 ms.',
+        'Hybrid search, BGE embeddings plus BM25 merged with reciprocal rank fusion, finds the right source for 100% of test questions in the top 6 (MRR 0.836) in about 21 ms.',
         'Raised answer accuracy from 88% to 100% on a 34-question evaluation set built to measure each change.',
         'Ablated a cross-encoder reranker: 0.6–3 s slower per query with no gain in hit rate, so it stays off by default.',
         'Recovered fees and placement data from 284 scanned PDFs with Gemini OCR, in a pipeline that resumes where it stopped.',
@@ -257,7 +257,7 @@ window.CONTENT = {
                   { k: 'code', t: 'BM25 search', s: 'Same words: names, “JEE”, “M.Tech”' },
                 ],
               },
-              { nodes: [{ k: 'decision', key: true, t: 'Rank fusion', s: 'RRF keeps the best 6, in about 21 ms' }] },
+              { nodes: [{ k: 'decision', key: true, t: 'Rank fusion', s: 'RRF keeps the best 6, in about 21 ms' }] },
               { nodes: [{ k: 'ai', t: 'Gemini', s: 'Answers only from those passages, citing each one' }] },
               { nodes: [{ k: 'ui', t: 'Answer + sources', s: 'Cached for repeats; rate-limited per visitor' }] },
             ],
@@ -270,7 +270,7 @@ window.CONTENT = {
       metrics: [
         { value: '100%', label: 'right source in the top 6 (MRR 0.836)', tier: 'platinum' },
         { value: '100%', label: 'answer accuracy on 34 questions, up from 88%', tier: 'gold' },
-        { value: '~21 ms', label: 'per hybrid search', tier: 'silver' },
+        { value: '~21 ms', label: 'per hybrid search', tier: 'silver' },
         { value: '$0', label: 'to host, with a 3-model Gemini fallback', tier: 'silver' },
       ],
       stack: [
