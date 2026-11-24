@@ -957,7 +957,8 @@ window.Records = (() => {
       last = performance.now();
       raf = requestAnimationFrame(tick);
       if (!fromHistory) history.pushState({ record: true }, '', `#record/${p.id}`);
-      setTimeout(() => $('.rr-back', root).focus({ preventScroll: true }), 50);
+      // focus moves into the record for keyboard and screen-reader users, without a ring for the mouse
+      setTimeout(() => $('.rr-back', root).focus({ preventScroll: true, focusVisible: false }), 50);
     } else if (!fromHistory) {
       history.replaceState(history.state, '', `#record/${p.id}`);
     }
