@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sreyash Trivedi · Engineer &amp; Pianist</title>
+  <meta name="description" content="Sreyash Trivedi: software, AI and ML engineer, and pianist. Take a seat at the piano to see the projects.">
+  <meta name="theme-color" content="#070609">
+  <link rel="canonical" href="https://shreyashtrivedi.github.io/">
+  <!-- the card shown when the link is shared -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://shreyashtrivedi.github.io/">
+  <meta property="og:site_name" content="Sreyash Trivedi">
+  <meta property="og:title" content="Sreyash Trivedi · Engineer &amp; Pianist">
+  <meta property="og:description" content="Software, AI and ML engineer, and pianist. Take a seat at the piano to see the projects.">
+  <meta property="og:image" content="https://shreyashtrivedi.github.io/assets/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A grand piano on a dark stage, with the name Sreyash Trivedi">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23070609'/%3E%3Cellipse cx='12' cy='22' rx='6' ry='4.5' transform='rotate(-22 12 22)' fill='%23c9a45c'/%3E%3Crect x='16.5' y='5' width='2.4' height='17' fill='%23c9a45c'/%3E%3Cpath d='M18.9 5c4 2.5 6.5 6 4.5 11 0-4-2-6-4.5-6.5z' fill='%23c9a45c'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@400;900&family=Fredoka:wght@600;700&family=Caveat:wght@700&family=Jost:wght@500&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Archivo:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:wght@600&family=Abril+Fatface&family=Bebas+Neue&family=Shrikhand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/records.css">
+</head>
+<body class="is-intro">
+  <a class="skip" href="#" id="skip">Skip to résumé</a>
+
+  <canvas id="stage" aria-label="A grand piano on a dark stage"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#" id="brand" aria-label="Back to the introduction">
+      <svg class="monogram" viewBox="0 0 44 54" aria-hidden="true">
+        <defs>
+          <linearGradient id="gpBody" x1="0" y1="0" x2="0.8" y2="1">
+            <stop offset="0" stop-color="#34303a"/>
+            <stop offset="0.5" stop-color="#141217"/>
+            <stop offset="1" stop-color="#08070a"/>
+          </linearGradient>
+        </defs>
+        <path class="gp-body" d="M4 52L40 52 40 38C40 29 31 27 27 21 23 15 23 4 13.5 3 7.5 2.4 4 6.5 4 12Z"/>
+        <path class="gp-gloss" d="M7 41V13.5C7 9.5 9.2 6.4 13 6"/>
+        <line class="gp-fall" x1="5" y1="43.6" x2="39" y2="43.6"/>
+        <g class="gp-keys"><rect class="mk-w" x="5.85" y="44.6" width="4.19" height="6.6" rx="0.6" style="--i:0"/><rect class="mk-w" x="10.54" y="44.6" width="4.19" height="6.6" rx="0.6" style="--i:1"/><rect class="mk-w" x="15.22" y="44.6" width="4.19" height="6.6" rx="0.6" style="--i:2"/><rect class="mk-w" x="19.91" y="44.6" width="4.19" height="6.6" rx="0.6" style="--i:3"/><rect class="mk-w" x="24.59" y="44.6" width="4.19" height="6.6" rx="0.6" style="--i:4"/><rect class="mk-w" x="29.28" y="44.6" width="4.19" height="6.6" rx="0.6" style="--i:5"/><rect class="mk-w" x="33.96" y="44.6" width="4.19" height="6.6" rx="0.6" style="--i:6"/><rect class="mk-b" x="8.94" y="44.6" width="2.7" height="4" rx="0.4"/><rect class="mk-b" x="13.62" y="44.6" width="2.7" height="4" rx="0.4"/><rect class="mk-b" x="22.99" y="44.6" width="2.7" height="4" rx="0.4"/><rect class="mk-b" x="27.68" y="44.6" width="2.7" height="4" rx="0.4"/><rect class="mk-b" x="32.36" y="44.6" width="2.7" height="4" rx="0.4"/></g>
+      </svg>
+      <span class="brand-name" id="brandName">Sreyash Trivedi</span>
+    </a>
+    <div class="top-actions">
+      <button class="icon-btn" id="shuffleBtn" aria-label="Change piece (random)" title="Change piece: play a random piece (S)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7h3.2c2 0 3.2 1 4.3 2.7l2.4 3.6c1.1 1.7 2.3 2.7 4.3 2.7h2.8M3.5 16h3.2c1.4 0 2.4-.5 3.2-1.4M13.5 8.4c.8-.9 1.8-1.4 3.2-1.4h2.8M17.8 4.6 20.2 7l-2.4 2.4M17.8 13.6l2.4 2.4-2.4 2.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="icon-btn" id="pieceBtn" aria-label="Choose a piece" aria-haspopup="dialog" aria-expanded="false" title="Choose a piece (P)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18.5V6.2l10-2.2v12.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><ellipse cx="6.6" cy="18.5" rx="2.6" ry="2"/><ellipse cx="16.6" cy="16.3" rx="2.6" ry="2"/></svg>
+      </button>
+      <button class="icon-btn" id="mute" aria-label="Mute music" aria-pressed="false" title="Sound (M)">
+        <svg class="ico-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <svg class="ico-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9.5l5 5m0-5l-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <button class="text-btn" id="scoreBtn" title="Plain résumé (R)">Résumé</button>
+    </div>
+  </header>
+
+  <section class="intro" id="intro">
+    <p class="i-kicker" id="introKicker">Portfolio · 2026</p>
+    <h1 class="i-name" id="introName"><span>Sreyash</span> <span>Trivedi</span></h1>
+    <p class="i-lead" id="introLead"></p>
+    <div class="i-actions">
+      <button class="seat" id="seat"><span class="seat-label">Take a seat</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+      <span class="i-status" id="status">Tuning the piano…</span>
+    </div>
+    <p class="i-note">Sound on · <span id="introPiece"></span></p>
+    <p class="i-note i-spotify">Log in to <a href="https://accounts.spotify.com/login?continue=https%3A%2F%2Fopen.spotify.com%2F" target="_blank" rel="noopener noreferrer">Spotify</a> for a better experience :)</p>
+  </section>
+
+  <section class="recital" id="recital" aria-label="Profile" hidden>
+    <div class="slide-card">
+      <div class="ticket-stub" aria-hidden="true">
+        <span class="ts-label">No.</span>
+        <span class="ts-num" id="ticketNo">01</span>
+      </div>
+      <div class="ticket-main">
+        <div class="segments" id="segments"></div>
+        <div class="slides" id="slides" aria-live="polite"></div>
+      </div>
+    </div>
+    <nav class="slide-nav" aria-label="Slideshow controls">
+      <button class="nav-btn" id="prev" aria-label="Previous" title="Previous (←)"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+      <button class="nav-btn" id="pause" aria-label="Pause slideshow" title="Pause (Space)">
+        <svg class="ico-pause" viewBox="0 0 24 24"><path d="M9 6v12M15 6v12" stroke="currentColor" stroke-width="1.6"/></svg>
+        <svg class="ico-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>
+      </button>
+      <span class="counter" id="counter">01 / 11</span>
+      <button class="nav-btn" id="next" aria-label="Next" title="Next (→)"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+    </nav>
+    <button class="now-playing" id="nowPlaying" title="Choose a piece (P)"><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span><span id="npText"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14l5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+    <button class="change-piece" id="npShuffle" title="Play a random piece (S)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7h3.2c2 0 3.2 1 4.3 2.7l2.4 3.6c1.1 1.7 2.3 2.7 4.3 2.7h2.8M3.5 16h3.2c1.4 0 2.4-.5 3.2-1.4M13.5 8.4c.8-.9 1.8-1.4 3.2-1.4h2.8M17.8 4.6 20.2 7l-2.4 2.4M17.8 13.6l2.4 2.4-2.4 2.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Change piece</span></button>
+    <p class="ps-nudge" id="playNudge" hidden>The keys are real. Sit in for a moment?</p>
+    <button class="play-self" id="playSelf" aria-pressed="false" title="Play the piano yourself (K)">
+      <span class="ps-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><ellipse cx="12" cy="22" rx="5.2" ry="3.9" transform="rotate(-22 12 22)"/><rect x="16" y="6.5" width="1.9" height="15.5" rx="0.9"/><path d="M17.9 6.5c3.6 2.2 6 5.4 4 10 0-3.6-1.8-5.5-4-6z"/></svg></span>
+      <span class="ps-text"><em>Fancy a try?</em><strong>Play the piano</strong></span>
+    </button>
+  </section>
+
+  <div class="play-hud" id="playHud" role="region" aria-label="Playing the piano" hidden>
+    <div class="ph-text">
+      <p class="ph-title" id="phTitle">The piano is yours.</p>
+      <p class="ph-guide ph-type">Your keyboard’s middle row plays the white keys, the row just above it the black ones. Hold the space bar to let the notes ring.</p>
+      <p class="ph-guide ph-touch">Tap any key, and take your time.</p>
+      <p class="ph-where ph-type"><span id="phOctave">Around middle C</span><span class="ph-dot">·</span><kbd>Z</kbd> lower <kbd>X</kbd> higher</p>
+    </div>
+    <button class="ph-done" id="playDone"><span>Back to the music</span><small>Esc</small></button>
+  </div>
+  <div class="key-labels" id="keyLabels" aria-hidden="true"></div>
+
+  <div class="repertoire" id="repertoire" role="dialog" aria-label="Choose a piece" hidden>
+    <div class="rep-head">
+      <p class="rep-heading">Repertoire <span id="repCount"></span></p>
+      <button class="rep-x" id="repClose" aria-label="Close">×</button>
+    </div>
+    <div class="rep-list" id="repList"></div>
+    <div class="rep-foot">
+      <span>Scores: Mutopia Project · Piano: Salamander Grand</span>
+      <span class="rep-actions"><button class="link-btn" id="repShuffle">Random piece</button><button class="link-btn" id="repNext">Next →</button></span>
+    </div>
+  </div>
+
+  <p class="credits">Piano: Salamander Grand (CC BY 3.0) · Scores: Mutopia Project (public domain &amp; CC BY-SA)</p>
+
+  <div class="score" id="score" hidden>
+    <div class="score-bar">
+      <button id="scoreClose">← Back to the piano</button>
+      <button id="scorePrint" class="ghost">Print / Save PDF</button>
+    </div>
+    <div class="score-paper" id="scorePaper"></div>
+  </div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.149.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script src="js/content.js"></script>
+  <script src="js/albums.js"></script>
+  <script src="js/repertoire.js"></script>
+  <script src="js/grand-piano.js"></script>
+  <script src="js/records.js"></script>
+  <script type="module">
+    // Load three.js with the effects the stage uses (bloom and the finishing pass),
+    // then the stage and the site. Without the effects, the stage falls back to plain rendering.
+    const load = (src) => new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = reject;
+      document.body.appendChild(s);
+    });
+    try {
+      const [THREE, composer, render, bloom, shader] = await Promise.all([
+        import('three'),
+        import('three/addons/postprocessing/EffectComposer.js'),
+        import('three/addons/postprocessing/RenderPass.js'),
+        import('three/addons/postprocessing/UnrealBloomPass.js'),
+        import('three/addons/postprocessing/ShaderPass.js'),
+      ]);
+      window.THREE = THREE;
+      window.THREE_FX = {
+        EffectComposer: composer.EffectComposer,
+        RenderPass: render.RenderPass,
+        UnrealBloomPass: bloom.UnrealBloomPass,
+        ShaderPass: shader.ShaderPass,
+      };
+    } catch (err) {
+      console.warn('Stage effects unavailable:', err);
+      if (!window.THREE) await load('https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js').catch(() => {});
+    }
+    if (window.THREE) await load('js/stage.js');
+    await load('js/main.js');
+  </script>
+</body>
+</html>
