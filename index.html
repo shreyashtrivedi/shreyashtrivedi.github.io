@@ -22,8 +22,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@400;900&family=Fredoka:wght@600;700&family=Caveat:wght@700&family=Jost:wght@500&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Archivo:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:wght@600&family=Abril+Fatface&family=Bebas+Neue&family=Shrikhand&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/records.css">
+  <!-- ?v= on the site's own files: change it with each update so browsers fetch the new copies -->
+  <link rel="stylesheet" href="css/style.css?v=20261125b">
+  <link rel="stylesheet" href="css/records.css?v=20261125b">
 </head>
 <body class="is-intro">
   <a class="skip" href="#" id="skip">Skip to résumé</a>
@@ -145,11 +146,11 @@
       }
     }
   </script>
-  <script src="js/content.js"></script>
-  <script src="js/albums.js"></script>
-  <script src="js/repertoire.js"></script>
-  <script src="js/grand-piano.js"></script>
-  <script src="js/records.js"></script>
+  <script src="js/content.js?v=20261125b"></script>
+  <script src="js/albums.js?v=20261125b"></script>
+  <script src="js/repertoire.js?v=20261125b"></script>
+  <script src="js/grand-piano.js?v=20261125b"></script>
+  <script src="js/records.js?v=20261125b"></script>
   <script type="module">
     // Load three.js with the effects the stage uses (bloom and the finishing pass),
     // then the stage and the site. Without the effects, the stage falls back to plain rendering.
@@ -179,8 +180,8 @@
       console.warn('Stage effects unavailable:', err);
       if (!window.THREE) await load('https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js').catch(() => {});
     }
-    if (window.THREE) await load('js/stage.js');
-    await load('js/main.js');
+    if (window.THREE) await load('js/stage.js?v=20261125b');
+    await load('js/main.js?v=20261125b');
   </script>
 </body>
 </html>
